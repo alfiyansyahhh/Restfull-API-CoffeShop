@@ -1,7 +1,7 @@
-require('dotenv').config()
+require('dotenv').config();
 
-const env ={
-    db_username: process.env.db_username,
-    db_password: process.env.db_password
-}
-module.exports= env
+const env = {
+  dbUsername: process.env.db_username,
+  dbPassword: process.env.db_password,
+};
+module.exports = env;

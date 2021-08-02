@@ -1,15 +1,15 @@
 // untuk menghandle router product
 
-const express = require('express')
-const productController = require('../controller/products')
+const express = require('express');
+const productController = require('../controller/products');
+const midaud = require('../midleware/authentication');
 
-
-const productRouter = express.Router()
+const productRouter = express.Router();
 productRouter
-.get('/product', productController.getList)
-.get('/product/:id', productController.getDetails)
-.post('/product', productController.insert)
-.put('/product/:id', productController.update)
-.delete('/product/:id', productController.delete)
+  .get('/product', midaud, productController.getList)
+  .get('/product/:id', midaud, productController.getDetails)
+  .post('/product', midaud, productController.insert)
+  .put('/product/:id', midaud, productController.update)
+  .delete('/product/:id', midaud, productController.delete);
 
-module.exports = productRouter
+module.exports = productRouter;
