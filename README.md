@@ -1,3 +1,9 @@
+Installation
+
+`npm install`
+
+
+
 # RestfullAPI-ExpressJS-MySQL-CoffeeShop
 
 // menampilkan data
