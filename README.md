@@ -1,16 +1,16 @@
 Installation:
 
-install node-modules
+- install node-modules
 `npm install`
 
-`copy .env.example`
+- copy .env.example
 
-`set databases`
+- set databases
 
-Run app with node.js
+- Run app with node.js
 `node app.js`
 
-open postman 
+- open postman 
 
 # RestfullAPI-ExpressJS-MySQL-CoffeeShop
 
