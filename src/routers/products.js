@@ -2,14 +2,14 @@
 
 const express = require('express');
 const productController = require('../controller/products');
-const midaud = require('../midleware/authentication');
+const midauth = require('../midleware/authentication');
 
 const productRouter = express.Router();
 productRouter
-  .get('/product', midaud, productController.getList)
-  .get('/product/:id', midaud, productController.getDetails)
-  .post('/product', midaud, productController.insert)
-  .put('/product/:id', midaud, productController.update)
-  .delete('/product/:id', midaud, productController.delete);
+  .get('/product', midauth, productController.getList)
+  .get('/product/:id', midauth, productController.getDetails)
+  .post('/product', midauth, productController.insert)
+  .put('/product/:id', midauth, productController.update)
+  .delete('/product/:id', midauth, productController.delete);
 
 module.exports = productRouter;

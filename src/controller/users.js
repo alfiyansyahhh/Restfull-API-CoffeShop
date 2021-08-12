@@ -12,18 +12,17 @@ const users = {
       bcrypt.hash(body.password, 10, (err, hash) => {
         // Store hash in your password DB.
         if (err) {
-          // console.log(err);
+          failed(res, 401, err); // error handling kurang
         } else {
           usersModel.register(body, hash).then((result) => {
             success(res, result, 'succes');
           }).catch((err1) => {
-            res.json(err1);
+            failed(res, 401, err1);
           });
-          // console.log(hash);
         }
       });
     } catch (error) {
-      failed(res, 401);
+      failed(res, 401, error);
     }
   },
   login: (req, res) => {
@@ -31,20 +30,25 @@ const users = {
       const { body } = req;
       usersModel.cekUsername(body).then((result) => {
         if (result.length <= 0) {
-          res.json('username salah');
+          failed(res, 100, 'username salah'); // responstandar kurang
         } else {
           const passwordHash = result[0].password;
-          const test = bcrypt.compareSync(body.password, passwordHash);
-          console.log(test);
-          res.json(test);
-          console.log(body.password);
-          console.log(passwordHash);
+          const passHash = bcrypt.compareSync(body.password, passwordHash);
+          if (passHash === true) {
+            const message = {
+              message: 'Login success',
+              token: '123',
+            };
+            success(res, result, message);
+          } else {
+            failed(res, result, 'papssword salah');
+          }
         }
       }).catch((err1) => {
-        res.json(err1);
+        failed(res, 401, err1);
       });
     } catch (error) {
-      failed(res, 401);
+      failed(res, 401, error);
     }
   },
   getList: (req, res) => {
@@ -68,13 +72,11 @@ const users = {
           page: query.page,
         };
         success(res, output, 'succes');
-        // res.json(result)
       }).catch((err) => {
         failed(res, 500, err);
-        // res.json(err)
       });
     } catch (error) {
-      failed(res, 401);
+      failed(res, 401, error);
       // res.json(error)
     }
   },
@@ -88,7 +90,7 @@ const users = {
         failed(res, 500, err);
       });
     } catch (error) {
-      failed(res, 401);
+      failed(res, 401, error);
     }
   },
   insert: (req, res) => {
@@ -100,7 +102,7 @@ const users = {
         failed(res, 500, err);
       });
     } catch (error) {
-      failed(res, 401);
+      failed(res, 401, error);
     }
   },
 
@@ -114,7 +116,7 @@ const users = {
         failed(res, 500, err);
       });
     } catch (error) {
-      failed(res, 401);
+      failed(res, 401, error);
     }
   },
   delete: (req, res) => {
@@ -126,7 +128,7 @@ const users = {
         failed(res, 500, err);
       });
     } catch (error) {
-      failed(res, 401);
+      failed(res, 401, error);
     }
   },
 };

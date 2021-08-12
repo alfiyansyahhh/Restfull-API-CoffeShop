@@ -2,14 +2,14 @@
 
 const express = require('express');
 const categoryController = require('../controller/category');
-const midaud = require('../midleware/authentication');
+const midauth = require('../midleware/authentication');
 
 const categoryRouter = express.Router();
 categoryRouter
-  .get('/category', midaud, categoryController.getList)
-  .get('/category/:id', midaud, categoryController.getDetails)
-  .post('/category', midaud, categoryController.insert)
-  .put('/category/:id', midaud, categoryController.update)
-  .delete('/category/:id', midaud, categoryController.delete);
+  .get('/category', midauth, categoryController.getList)
+  .get('/category/:id', midauth, categoryController.getDetails)
+  .post('/category', midauth, categoryController.insert)
+  .put('/category/:id', midauth, categoryController.update)
+  .delete('/category/:id', midauth, categoryController.delete);
 
 module.exports = categoryRouter;

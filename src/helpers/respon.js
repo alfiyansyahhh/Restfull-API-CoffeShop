@@ -22,7 +22,15 @@ const response = {
         succes: false,
         data: null,
         code,
-        message: '401 Unauthorized',
+        message: `401 Unauthorized${err}`,
+      };
+      res.json(response2);
+    } else if (code === 100) {
+      const response2 = {
+        succes: false,
+        data: null,
+        code,
+        message: err,
       };
       res.json(response2);
     }

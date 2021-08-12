@@ -58,15 +58,19 @@ const usersModel = {
     });
   }),
   register: (body, pass) => new Promise((resolve, reject) => {
-    db.query(`
-        INSERT INTO users (username,password) 
-        VALUE ('${body.username}','${pass}')`, (err, result) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(result);
-      }
-    });
+    db.query(
+      `INSERT INTO users (username,password,first_name,last_name,ttgl,gender,email_address,phone_number) 
+        VALUE (
+          '${body.username}','${pass}','${body.first_name}','${body.last_name}',
+          '${body.ttgl}','${body.gender}','${body.email_address}','${body.phone_number}'
+          )`, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      },
+    );
   }),
   cekUsername: (body) => new Promise((resolve, reject) => {
     db.query(`select * from users where username='${body.username}'`, (err, result) => {
@@ -82,7 +86,7 @@ const usersModel = {
       `update USERS set username='${body.username}',password='${body.password}',
                 picture='${body.picture}',display_name='${body.display_name}',first_name='${body.first_name}',
                 last_name='${body.last_name}',ttgl='${body.ttgl}',gender='${body.gender}',email_address='${body.email_address}',
-                phone_number='${body.phone_number}',delivery_address='${body.delivery_address}' where id_product='${id}'`, (err, result) => {
+                phone_number='${body.phone_number}',delivery_address='${body.delivery_address}' where id='${id}'`, (err, result) => {
         if (err) {
           reject(err);
         } else {
@@ -92,7 +96,7 @@ const usersModel = {
     );
   }),
   delete: (id) => new Promise((resolve, reject) => {
-    db.query(`delete from product where id_product='${id}'`, (err, result) => {
+    db.query(`delete from users where id='${id}'`, (err, result) => {
       if (err) {
         reject(err);
       } else {
