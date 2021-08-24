@@ -6,10 +6,10 @@ const { dbUsername, dbPassword } = require('../helpers/env');
 
 // untuk mengkoneksikan backend dengan mysql
 const db = mysql.createConnection({
-  host: 'localhost',
+  host: '172.31.82.210',
   user: dbUsername,
   password: dbPassword,
-  database: 'db_coffee-shop',
+  database: 'db_coffee_shop',
 });
 // unutk mengecek koneksi
 db.connect((err) => {

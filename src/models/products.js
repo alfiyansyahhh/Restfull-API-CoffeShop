@@ -5,7 +5,7 @@ const db = require('../config/db');
 const productModel = {
   getAll: () => new Promise((resolve, reject) => {
     db.query(
-      `SELECT id_product,picture,product_name,price,category 
+      `SELECT id_product,picture,product_name,price,category,ket 
                   from product left join category on product.categoryID=category.id`, (err, result) => {
         if (err) {
           reject(err);
@@ -17,7 +17,7 @@ const productModel = {
   }),
   getList: (search, field, typeSort, limit, offset) => new Promise((resolve, reject) => {
     db.query(
-      `select id_product,picture,product_name,price,category 
+      `select id_product,picture,product_name,price,category,ket
                 from product left join category on product.categoryID=category.id 
                 WHERE product_name LIKE "%${search}%" 
                 ORDER BY ${field} ${typeSort}
@@ -32,7 +32,7 @@ const productModel = {
   }),
   getDetails: (id) => new Promise((resolve, reject) => {
     db.query(
-      `select id_product,picture,product_name,price,category 
+      `select id_product,picture,product_name,price,category,ket
                     from product left join category on product.categoryID=category.id 
                     where id_product='${id}'`, (err, result) => {
         if (err) {
@@ -45,8 +45,8 @@ const productModel = {
   }),
   insert: (body) => new Promise((resolve, reject) => {
     db.query(
-      `INSERT INTO product (picture,product_name,price,categoryID) 
-                VALUE ('${body.picture}','${body.product_name}','${body.price}','${body.category}')`,
+      `INSERT INTO product (picture,product_name,price,categoryID,ket) 
+                VALUE ('${body.picture}','${body.product_name}','${body.price}','${body.category}','${body.ket}')`,
       (err, result) => {
         if (err) {
           reject(err);
@@ -57,7 +57,7 @@ const productModel = {
     );
   }),
   update: (body, id) => new Promise((resolve, reject) => {
-    db.query(`update product set picture='${body.picture}',product_name='${body.product_name}',price='${body.price}}',categoryID='${body.category}' where id_product='${id}'`, (err, result) => {
+    db.query(`update product set picture='${body.picture}',product_name='${body.product_name}',price='${body.price}',categoryID='${body.category}',ket='${body.ket}' where id_product='${id}'`, (err, result) => {
       if (err) {
         reject(err);
       } else {
